@@ -426,3 +426,317 @@ function curtail(arr) {
 
 ------
 
+## 题目描述
+
+合并数组 arr1 和数组 arr2。不要直接修改数组 arr，结果返回新的数组
+
+示例1
+
+## 输入
+
+```
+[1, 2, 3, 4], ['a', 'b', 'c', 1]
+```
+
+## 输出
+
+```
+[1, 2, 3, 4, 'a', 'b', 'c', 1]
+```
+
+```
+//concat() 简单粗暴
+function concat(arr1, arr2) {
+    return arr1.concat(arr2)
+}
+
+//利用slice+push.apply
+function concat(arr1, arr2) {
+    var newArr=arr1.slice(0);
+    [].push.apply(newArr, arr2);
+    return newArr;
+}
+//利用slice+push
+function concat(arr1, arr2) {
+    var newArr=arr1.slice(0);
+    for(var i=0;i<arr2.length;i++){
+        newArr.push(arr2[i]);
+    }
+    return newArr;
+}
+//普通的迭代拷贝
+function concat(arr1, arr2) {
+    var newArr=[];
+    for(var i=0;i<arr1.length;i++){
+        newArr.push(arr1[i]);
+    }
+    for(var j=0;j<arr2.length;j++){
+        newArr.push(arr2[j]);
+    }
+    return newArr;
+}
+```
+
+
+
+------
+
+## 题目描述
+
+在数组 arr 的 index 处添加元素 item。不要直接修改数组 arr，结果返回新的数组
+
+示例1
+
+## 输入
+
+```
+[1, 2, 3, 4], 'z', 2
+```
+
+## 输出
+
+```
+[1, 2, 'z', 3, 4]
+```
+
+```
+function insert(arr, item, index) {
+     //复制数组
+     var a = arr.slice(0);
+     a.splice(index, 0, item);
+     return a;
+ }
+```
+
+------
+
+## 题目描述
+
+统计数组 arr 中值等于 item 的元素出现的次数
+
+示例1
+
+## 输入
+
+```
+[1, 2, 4, 4, 3, 4, 3], 4
+```
+
+## 输出
+
+```
+3
+```
+
+```
+
+function count(arr, item) {
+     var count = 0;
+     arr.forEach(function(e){
+         //e为arr中的每一个元素，与item相等则count+1
+         e == item ? count++ : 0;
+     });
+     return count;
+ }
+ 
+
+function duplicates(arr) {
+ var result = [];
+    arr.forEach(function(elem){
+       if(arr.indexOf(elem) !=arr.lastIndexOf(elem) && result.indexOf(elem) == -1){
+           result.push(elem);
+       }
+    });
+    return result;
+}
+```
+
+------
+
+## 题目描述
+
+为数组 arr 中的每个元素求二次方。不要直接修改数组 arr，结果返回新的数组
+
+示例1
+
+## 输入
+
+```
+[1, 2, 3, 4]
+```
+
+## 输出
+
+```
+[1, 4, 9, 16]
+```
+
+```
+function square(arr) {
+    var newArr = arr.slice();
+    newArr.forEach(function(item,index){	//forEach()方法调用数组的每一个元素
+        newArr[index] = newArr[index] * newArr[index];
+    });
+    return newArr;
+}
+
+// 使用map，map方法返回一个新数组，不修改原数组
+  function square(arr) {
+      return arr.map(function(e) {
+          return e * e;
+      })
+  }
+  // ES6箭头函数版
+  const square = arr => arr.map(e => e * e);
+```
+
+------
+
+## 题目描述
+
+请修复给定的 js 代码中，函数定义存在的问题
+
+示例1
+
+## 输入
+
+```
+true
+```
+
+## 输出
+
+```
+a
+```
+
+```
+//这里是需要修改的源代码
+function functions(flag) {
+    if (flag) {
+      function getValue() { return 'a'; }
+    } else {
+      function getValue() { return 'b'; }
+    }
+
+    return getValue();
+}
+```
+
+```
+//上述源代码，两次声明了getValue（）函数，虽然不会赋值，但是声明了，也就是说返回的是重写的getValue函数
+function functions(flag) {
+    var getValue = function(){
+        if(flag){
+            return 'a';
+        }else{
+            return 'b';
+        }
+    }
+
+    return getValue();
+}
+```
+
+------
+
+## 题目描述
+
+修改 js 代码中 parseInt 的调用方式，使之通过全部测试用例
+
+示例1
+
+## 输入
+
+```
+'12'
+```
+
+## 输出
+
+```
+12
+```
+
+示例2
+
+## 输入
+
+```
+'12px'
+```
+
+## 输出
+
+```
+12
+```
+
+示例3
+
+## 输入
+
+```
+'0x12'
+```
+
+## 输出
+
+```
+0
+```
+
+```
+function parse2Int(num) {
+    return parseInt(num,10);
+}
+//parseInt(string, radix) 当参数 radix 的值为 0，或没有设置该参数时，parseInt() 会根据 string 来判断数字的基数。
+//举例，如果 string 以 "0x" 开头，parseInt() 会把 string 的其余部分解析为十六进制的整数。如果 string 以 0 开头，那么 ECMAScript v3 允许 parseInt() 的一个实现把其后的字符解析为八进制或十六进制的数字。如果 string 以 1 ~ 9 的数字开头，parseInt() 将把它解析为十进制的整数。
+```
+
+------
+
+## 题目描述
+
+判断 val1 和 val2 是否完全等同
+
+```
+function identity(val1, val2) {
+    return val1===val2?true:false;	//其实这么写复杂了，可以这样 return val1===val2
+}
+
+
+```
+
+------
+
+## 题目描述
+
+实现一个打点计时器，要求
+1、从 start 到 end（包含 start 和 end），每隔 100 毫秒 console.log 一个数字，每次数字增幅为 1
+2、返回的对象中需要包含一个 cancel 方法，用于停止定时操作
+3、第一个数需要立即输出
+
+```
+
+function count(start, end) {
+  //立即输出第一个值
+  console.log(start++);
+     var timer = setInterval(function(){
+         if(start <= end){
+             console.log(start++);
+         }else{
+             clearInterval(timer);
+         }
+     },100);
+    //返回一个对象
+     return {
+         cancel : function(){
+             clearInterval(timer);
+         }
+     };
+ }
+```
+
+------
+
