@@ -740,3 +740,166 @@ function count(start, end) {
 
 ------
 
+## 题目描述
+
+实现 fizzBuzz 函数，参数 num 与返回值的关系如下：
+1、如果 num 能同时被 3 和 5 整除，返回字符串 fizzbuzz
+2、如果 num 能被 3 整除，返回字符串 fizz
+3、如果 num 能被 5 整除，返回字符串 buzz
+4、如果参数为空或者不是 Number 类型，返回 false
+5、其余情况，返回参数 num
+
+示例1
+
+## 输入
+
+```
+15
+```
+
+## 输出
+
+```
+fizzbuzz
+```
+
+```
+function fizzBuzz(num) {
+    if(num%3==0 && num%5==0){
+        return 'fizzbuzz';
+    }else if(num%3==0){
+        return 'fizz';
+    }else if(num%5==0){
+        return 'buzz';
+    }else if(num==null || typeof num!= 'number'){
+        return false;
+    }else {
+        return num;
+    }
+}
+
+//为什么写num==null呢？其实写num==undefined也是可以的，会隐式转换，但是不可以写 !num, 
+因为 !num 可以包括 0 undefined null false ''
+```
+
+------
+
+## 题目描述
+
+将数组 arr 中的元素作为调用函数 fn 的参数
+
+示例1
+
+## 输入
+
+```
+function (greeting, name, punctuation) {return greeting + ', ' + name + (punctuation || '!');}, ['Hello', 'Ellie', '!']
+```
+
+## 输出
+
+```
+Hello, Ellie!
+```
+
+```
+function argsAsArray(fn, arr) {
+  return fn.apply(this, arr);
+ }
+ 
+调用函数可以使用call或者apply这两个方法，区别在于call需要将传递给函数的参数明确写出来，是多少参数就需要写多少参数。而apply则将传递给函数的参数放入一个数组中，传入参数数组即可。
+```
+
+------
+
+## 题目描述
+
+将函数 fn 的执行上下文改为 obj 对象
+
+示例1
+
+## 输入
+
+```
+function () {return this.greeting + ', ' + this.name + '!!!';}, {greeting: 'Hello', name: 'Rebecca'}
+```
+
+## 输出
+
+```
+Hello, Rebecca!!!
+```
+
+```
+
+在JavaScript中，函数是一种对象，其上下文是可以变化的，对应的，函数内的this也是可以变化的，函数可以作为一个对象的方法，也可以同时作为另一个对象的方法，可以通过Function对象中的call或者apply方法来修改函数的上下文，函数中的this指针将被替换为call或者apply的第一个参数。将函数 fn 的执行上下文改为 obj 对象，只需要将obj作为call或者apply的第一个参数传入即可。
+
+function speak(fn, obj) {
+  return fn.apply(obj, obj);
+ }
+```
+
+------
+
+## 题目描述
+
+实现函数 functionFunction，调用之后满足如下条件：
+1、返回值为一个函数 f
+2、调用返回的函数 f，返回值为按照调用顺序的参数拼接，拼接字符为英文逗号加一个空格，即 ', '
+3、所有函数的参数数量为 1，且均为 String 类型
+
+示例1
+
+## 输入
+
+```
+functionFunction('Hello')('world')
+```
+
+## 输出
+
+```
+Hello, world
+```
+
+```
+
+
+function functionFunction(str) {
+  var f = function(s){
+         return str+", "+s;
+     }
+     return f;
+ }
+```
+
+------
+
+## 题目描述
+
+实现函数 makeClosures，调用之后满足如下条件：
+1、返回一个函数数组 result，长度与 arr 相同
+2、运行 result 中第 i 个函数，即 result[i]()，结果与 fn(arr[i]) 相同
+
+示例1
+
+## 输入
+
+```
+[1, 2, 3], function (x) { 
+	return x * x; 
+}
+```
+
+## 输出
+
+```
+4
+```
+
+```
+
+```
+
+------
+
